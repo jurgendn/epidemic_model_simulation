@@ -1,3 +1,5 @@
 visualization/node_modules
 server/project_2
 server/__pycache__
+server/.vscode
+server/.ipynb_checkpoints
