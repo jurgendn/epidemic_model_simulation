@@ -1,6 +1,6 @@
 const container = document.getElementById("container");
-container.style.width = window.innerWidth + "px";
-container.style.height = window.innerHeight + "px";
+container.style.width = window.innerWidth * 0.8 + "px";
+container.style.height = window.innerHeight * 0.8 + "px";
 
 let data;
 
@@ -37,7 +37,7 @@ s.graph.nodes().forEach((node) => {
 
 s.refresh();
 
-var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
+let dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
 
 dragListener.bind("startdrag", function (event) {
   console.log(event);
@@ -50,4 +50,17 @@ dragListener.bind("drop", function (event) {
 });
 dragListener.bind("dragend", function (event) {
   console.log(event);
+});
+
+s.bind("overNode", function (n) {
+  document.getElementById("p_name").innerText = n.data.node.full_name;
+  document.getElementById("p_onset").innerText = n.data.node.onset_date;
+  document.getElementById("p_announce").innerText = n.data.node.announce_date;
+  document.getElementById("p_rank").innerText = n.data.node.pagerank;
+});
+s.bind("outNode", function (n) {
+  document.getElementById("p_name").innerText = "";
+  document.getElementById("p_onset").innerText = "";
+  document.getElementById("p_announce").innerText = "";
+  document.getElementById("p_rank").innerText = "";
 });
