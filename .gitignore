@@ -3,3 +3,4 @@ server/epidemic
 server/__pycache__
 server/.vscode
 server/.ipynb_checkpoints
+server/OpenLayers-2.13.1
