@@ -10,14 +10,23 @@
     <script src="sigma/build/plugins/sigma.plugins.dragNodes.min.js"></script>
     <script src="sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edges.curvedArrow.js"></script>
     <script src="sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edgehovers.curvedArrow.js"></script>
+    <script src="sigma/src/renderers/sigma.renderers.canvas.js"></script>
+    <script src="sigma/build/plugins/sigma.parsers.gexf.min.js"></script>
     <script src="sigma/plugins/sigma.plugins.filter/sigma.plugins.filter.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="sigma/plugins/sigma.renderers.customShapes/shape-library.js"></script>
+    <script src="sigma/plugins/sigma.renderers.customShapes/sigma.renderers.customShapes.js"></script>
+    <script src="sigma/build/plugins/sigma.renderers.customShapes.min.js"></script>
+    <script src="sigma/plugins/sigma.exporters.svg/sigma.exporters.svg.js"></script>
+    <script src="sigma/build/plugins/sigma.renderers.snapshot.min.js"></script>
+    <script src="modules/require.min.js"></script>
+    <script src="modules/jquery-3.5.1.min.js"></script>
   </head>
 
   <body>
-    <div id="info-box">
-      <table style="display: inline-flex">
+    <div id="info-box" style="display: inline-block; background: transparent">
+      <table
+        style="display: inline-flex; background-color: transparent; z-index: 1"
+      >
         <tr>
           <td id="p_name_label" style="padding: 10px">Bệnh nhân</td>
           <td id="p_name"></td>
@@ -31,13 +40,21 @@
           <td id="p_announce"></td>
         </tr>
         <tr>
+          <td id="p_quarantine_label" style="padding: 10px">Ngày cách ly</td>
+          <td id="p_quarantine"></td>
+        </tr>
+        <tr>
           <td id="p_rank_label" style="padding: 10px">Pagerank</td>
           <td id="p_rank"></td>
         </tr>
+        <tr>
+          <td>
+            <input type="text" name="searchNode" id="searchNode" />
+          </td>
+        </tr>
       </table>
     </div>
-
-    <div id="container"></div>
+    <div id="container" style="z-index: 10"></div>
   </body>
   <script src="graph_maker.js"></script>
 </html>

@@ -1,8 +1,10 @@
 const container = document.getElementById("container");
-container.style.width = window.innerWidth * 0.8 + "px";
-container.style.height = window.innerHeight * 0.8 + "px";
+container.style.width = window.innerWidth + "px";
+container.style.height = window.innerHeight + "px";
 
-let data;
+let searchBox = document.getElementById("searchNode");
+
+let dt;
 
 let s = new sigma({
   renderer: {
@@ -10,32 +12,48 @@ let s = new sigma({
     type: "canvas",
   },
   settings: {
-    defaultEdgeType: "curve",
-    labelThreshold: 11,
+    defaultEdgeType: "curvedArrow",
+    autoRescale: true,
   },
 });
 
-$.ajax({
-  async: false,
-  global: false,
-  url: "data.json",
-  dataType: "json",
-  success: function (dt) {
-    data = dt;
-  },
-});
+fetch("data.json")
+  .then((response) => response.json())
+  .then((data) => {
+    s.graph.read(data);
+    s.graph.edges().forEach((edge) => {
+      edge.color = edge._color;
+    });
+    
+    s.graph.nodes().forEach((node) => {
+      node.color = node._color;
+    });
+    s.refresh();
+  });
 
-s.graph.read(data);
+// $.ajax({
+//   async: false,
+//   global: false,
+//   url: "data.json",
+//   dataType: "json",
+//   success: function (dt) {
+//     data = dt;
+//   },
+// });
 
-s.graph.edges().forEach((edge) => {
-  edge.color = edge._color;
-});
+// s.graph.read(dt);
 
-s.graph.nodes().forEach((node) => {
-  node.color = node._color;
-});
+// s.graph.edges().forEach((edge) => {
+//   edge.color = edge._color;
+// });
 
-s.refresh();
+// s.graph.nodes().forEach((node) => {
+//   node.color = node._color;
+// });
+
+// s.renderers[0].snapshot({ format: "jpg", background: "white", download: true });
+
+// s.refresh();
 
 let dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
 
@@ -57,10 +75,26 @@ s.bind("overNode", function (n) {
   document.getElementById("p_onset").innerText = n.data.node.onset_date;
   document.getElementById("p_announce").innerText = n.data.node.announce_date;
   document.getElementById("p_rank").innerText = n.data.node.pagerank;
+  document.getElementById("p_quarantine").innerText =
+    n.data.node.quarantine_date;
 });
 s.bind("outNode", function (n) {
   document.getElementById("p_name").innerText = "";
   document.getElementById("p_onset").innerText = "";
   document.getElementById("p_announce").innerText = "";
   document.getElementById("p_rank").innerText = "";
+  document.getElementById("p_quarantine").innerText = "";
+});
+
+// console.log(data);
+searchBox.addEventListener("keyup", function (evt) {
+  if (evt.key === "Enter") {
+    const nodeName = searchBox.value;
+    s.graph.nodes().forEach((node) => {
+      if (node.label === nodeName) {
+        node.color = "#00ff80";
+        node.size = 5;
+      }
+    });
+  }
 });
