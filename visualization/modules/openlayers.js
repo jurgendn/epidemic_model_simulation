@@ -42,7 +42,7 @@ let data;
 $.ajax({
   async: false,
   global: false,
-  url: "data2.json",
+  url: "data/data2.json",
   dataType: "json",
   success: function (dt) {
     data = dt;
