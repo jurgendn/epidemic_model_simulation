@@ -21,6 +21,7 @@ fetch("data/data.json")
   .then((response) => response.json())
   .then((data) => {
     s.graph.read(data);
+    
     s.graph.edges().forEach((edge) => {
       edge.color = edge._color;
     });
@@ -28,6 +29,7 @@ fetch("data/data.json")
     s.graph.nodes().forEach((node) => {
       node.color = node._color;
     });
+
     s.refresh();
   });
 
