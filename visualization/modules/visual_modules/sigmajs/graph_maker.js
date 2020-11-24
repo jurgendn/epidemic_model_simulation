@@ -21,11 +21,11 @@ fetch("data/data.json")
   .then((response) => response.json())
   .then((data) => {
     s.graph.read(data);
-    
+
     s.graph.edges().forEach((edge) => {
       edge.color = edge._color;
     });
-    
+
     s.graph.nodes().forEach((node) => {
       node.color = node._color;
     });
@@ -99,4 +99,68 @@ searchBox.addEventListener("keyup", function (evt) {
       }
     });
   }
+});
+
+var config = {
+  node: [
+    {
+      show: "hovers",
+      hide: "hovers",
+      cssClass: "sigma-tooltip",
+      position: "top",
+      //autoadjust: true,
+      template:
+        '<div class="arrow"></div>' +
+        '<div class="sigma-tooltip-header">{{label}}</div>' +
+        '<div class="sigma-tooltip-body">' +
+        "  <table>" +
+        "    <tr><th>Name</th> <td>{{data.fullName}}</td></tr>" +
+        "    <tr><th>Onset date</th> <td>{{data.onset_date}}</td></tr>" +
+        "    <tr><th>Announce date</th> <td>{{data.announce_date}}</td></tr>" +
+        "    <tr><th>Quarantine date</th> <td>{{data.quarantine_date}}</td></tr>" +
+        "  </table>" +
+        "</div>" +
+        '<div class="sigma-tooltip-footer">Rank: {{data.pagerank}} </div>',
+      renderer: function (node, template) {
+        // The function context is s.graph
+        // Returns an HTML string:
+        return Mustache.render(template, node);
+      },
+    },
+    {
+      show: "overNode",
+      cssClass: "sigma-tooltip",
+      position: "right",
+      template:
+        '<div class="arrow"></div>' +
+        '<div class="sigma-tooltip-header">{{label}}</div>' +
+        '<div class="sigma-tooltip-body">' +
+        "  <table>" +
+        "    <tr><th>Name</th> <td>{{data.fullName}}</td></tr>" +
+        "    <tr><th>Onset date</th> <td>{{data.onset_date}}</td></tr>" +
+        "    <tr><th>Announce date</th> <td>{{data.announce_date}}</td></tr>" +
+        "    <tr><th>Quarantine date</th> <td>{{data.quarantine_date}}</td></tr>" +
+        "  </table>" +
+        "</div>" +
+        '<div class="sigma-tooltip-footer">Rank: {{data.pagerank}} </div>',
+      renderer: function (node, template) {
+        return Mustache.render(template, node);
+      },
+    },
+  ],
+  stage: {
+    template:
+      '<div class="arrow"></div>' +
+      '<div class="sigma-tooltip-header"> Menu </div>',
+  },
+};
+
+var tooltips = sigma.plugins.tooltips(s, s.renderers[0], config);
+
+tooltips.bind("shown", function (event) {
+  //console.log('tooltip shown');
+});
+
+tooltips.bind("hidden", function (event) {
+  //console.log('tooltip hidden');
 });

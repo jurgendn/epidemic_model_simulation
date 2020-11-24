@@ -4,22 +4,12 @@
     <meta charset="utf-8" />
     <title>Epidemic Model</title>
     <meta name="description" content="" />
-    <script src="sigma/build/sigma.min.js"></script>
-    <script src="sigma/build/plugins/sigma.parsers.json.min.js"></script>
-    <script src="sigma/build/plugins/sigma.layout.forceAtlas2.min.js"></script>
-    <script src="sigma/build/plugins/sigma.plugins.dragNodes.min.js"></script>
-    <script src="sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edges.curvedArrow.js"></script>
-    <script src="sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edgehovers.curvedArrow.js"></script>
-    <script src="sigma/src/renderers/sigma.renderers.canvas.js"></script>
-    <script src="sigma/build/plugins/sigma.parsers.gexf.min.js"></script>
-    <script src="sigma/plugins/sigma.plugins.filter/sigma.plugins.filter.js"></script>
-    <script src="sigma/plugins/sigma.renderers.customShapes/shape-library.js"></script>
-    <script src="sigma/plugins/sigma.renderers.customShapes/sigma.renderers.customShapes.js"></script>
-    <script src="sigma/build/plugins/sigma.renderers.customShapes.min.js"></script>
-    <script src="sigma/plugins/sigma.exporters.svg/sigma.exporters.svg.js"></script>
-    <script src="sigma/build/plugins/sigma.renderers.snapshot.min.js"></script>
     <script src="modules/require/require.min.js"></script>
     <script src="modules/require/jquery-3.5.1.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="modules/visual_modules/sigmajs/css/tooltips.css"
+    />
   </head>
 
   <body>
@@ -54,7 +44,23 @@
         </tr>
       </table>
     </div>
-    <div id="container" style="z-index: 10"></div>
+    <div id="sigma-wrapper"><div id="container" style="z-index: 10"></div></div>
   </body>
+  <script src="sigma/build/sigma.min.js"></script>
+  <script src="sigma/build/plugins/sigma.parsers.json.min.js"></script>
+  <script src="sigma/build/plugins/sigma.layout.forceAtlas2.min.js"></script>
+  <script src="sigma/build/plugins/sigma.plugins.dragNodes.min.js"></script>
+  <script src="sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edges.curvedArrow.js"></script>
+  <script src="sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edgehovers.curvedArrow.js"></script>
+  <script src="sigma/src/renderers/sigma.renderers.canvas.js"></script>
+  <script src="sigma/build/plugins/sigma.parsers.gexf.min.js"></script>
+  <script src="sigma/plugins/sigma.plugins.filter/sigma.plugins.filter.js"></script>
+  <script src="sigma/plugins/sigma.renderers.customShapes/shape-library.js"></script>
+  <script src="sigma/plugins/sigma.renderers.customShapes/sigma.renderers.customShapes.js"></script>
+  <script src="sigma/build/plugins/sigma.renderers.customShapes.min.js"></script>
+  <script src="sigma/plugins/sigma.exporters.svg/sigma.exporters.svg.js"></script>
+  <script src="sigma/build/plugins/sigma.renderers.snapshot.min.js"></script>
+  <script src="mustache.js-master/mustache.min.js"></script>
+  <script src="sigma/build/plugins/sigma.plugins.tooltips.js"></script>
   <script src="modules/visual_modules/sigmajs/graph_maker.js"></script>
 </html>
