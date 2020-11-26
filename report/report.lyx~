@@ -1,0 +1,1092 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage[utf8]{vietnam}
+\everymath{\displaystyle}
+\end_preamble
+\use_default_options true
+\begin_modules
+eqs-within-sections
+figs-within-sections
+theorems-bytype
+theorems-sec-bytype
+tabs-within-sections
+\end_modules
+\maintain_unincluded_children false
+\language vietnamese
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "newcent" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "eulervm" "auto"
+\font_default_family rmdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize 12
+\spacing other 1.3
+\use_hyperref false
+\papersize letterpaper
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 1.5cm
+\rightmargin 1.5cm
+\bottommargin 1.5cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Đồ án 2
+\end_layout
+
+\begin_layout Part
+Xây dựng đồ thị
+\end_layout
+
+\begin_layout Section
+Các vấn đề kỹ thuật
+\end_layout
+
+\begin_layout Subsection
+Cơ sở dữ liệu
+\end_layout
+
+\begin_layout Standard
+Neo4j
+\end_layout
+
+\begin_layout Standard
+Tham khảo ở Neo4j
+\end_layout
+
+\begin_layout Subsection
+Tương tác với đồ thị 
+\end_layout
+
+\begin_layout Standard
+python-igraph
+\end_layout
+
+\begin_layout Subsection
+Visualization
+\end_layout
+
+\begin_layout Standard
+Sigmajs
+\end_layout
+
+\begin_layout Standard
+Tại sao lại là sigmajs thì đơn giản là ông thần này làm cho ăn sẵn rồi,
+ ít phải làm việc nhiều, thay vào đó có thể có nhiều thời gian để làm việc
+ với networks hơn là chỉ chăm chăm vào visualize
+\end_layout
+
+\begin_layout Section
+Xây dựng đồ thị
+\end_layout
+
+\begin_layout Standard
+Phân lớp bệnh nhân thành 4 lớp dựa theo nhóm tuổi
+\end_layout
+
+\begin_layout Enumerate
+Dưới 18 tuổi
+\end_layout
+
+\begin_layout Enumerate
+Từ 18 - 50 tuổi
+\end_layout
+
+\begin_layout Enumerate
+Từ 50 - 65 tuổi
+\end_layout
+
+\begin_layout Enumerate
+Trên 65 tuổi
+\end_layout
+
+\begin_layout Standard
+Các bệnh nhân tiếp xúc với nhau được nối với nhau bởi một đoạn thẳng có
+ hướng.
+\end_layout
+
+\begin_layout Standard
+Ví dụ: Bệnh nhân A trước đó có tiếp xúc với bệnh nhân B, sẽ được nối bằng
+ một đoạn thẳng có hướng từ B đến A.
+\end_layout
+
+\begin_layout Remark
+Với cách xây dựng như trên, đồ thị có 297 thành phần liên thông, trong đó
+ có rất nhiều các thành phần liên thông chỉ có một đỉnh
+\end_layout
+
+\begin_layout Remark
+Như vậy, ta đang bị thiếu rất nhiều thông tin.
+ Để bổ sung thêm các thông tin này, ta giả sử rằng tồn tại khả năng lây
+ nhiễm qua trung gian, ví dụ như lây nhiễm qua dụng cụ dùng chung, chung
+ thang máy,...
+\end_layout
+
+\begin_layout Remark
+Để làm được điều này, ta cần thêm vào các nodes giả.
+ Các node này được thêm vào bằng cách kết nối những bệnh nhân có cùng địa
+ chỉ tạm trú/thường trú
+\end_layout
+
+\begin_layout Section
+Xử lí dữ liệu
+\end_layout
+
+\begin_layout Standard
+Dữ liệu bị thiếu, không đồng bộ.
+ 
+\end_layout
+
+\begin_layout Standard
+Ta không xét các dữ liệu không đồng bộ/bị sai.
+ Thay vào đó, ta quan tâm chú ý hơn đến các dữ liệu bị thiếu
+\end_layout
+
+\begin_layout Standard
+Dữ liệu bị thiếu thường là dữ liệu về ngày khởi phát.
+\end_layout
+
+\begin_layout Standard
+Để xử lí đống này, ta xét các bệnh nhân đã có ngày công bố và ngày khởi
+ phát thành cặp 
+\begin_inset Formula $\left(cb:kp\right)$
+\end_inset
+
+, sau đó sinh ra một mẫu quan sát 
+\begin_inset Formula $\Delta=\left[\Delta_{1},...,\Delta_{n}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Giả thiết rằng nếu mẫu đủ lớn thì 
+\begin_inset Formula $\Delta_{i}\sim\mathcal{N}\left(\mu,\sigma^{2}\right)$
+\end_inset
+
+, khi đó ta có thể sinh ra một cách ngẫu nhiên các khoảng thời gian để điền
+ vào các bệnh nhân chưa có ngày khởi phát.
+\end_layout
+
+\begin_layout Subsection
+Trên dữ liệu thực tế
+\end_layout
+
+\begin_layout Subsubsection
+Lần xử lí 1:
+\end_layout
+
+\begin_layout Standard
+Từ dữ liệu đã cho với 389 bệnh nhân, ta thấy có 112 bệnh nhân có thông tin
+ về ngày khởi phát.
+ Cho rằng những thông tin này là đáng tin cậy, ta ước lượng được
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{cases}
+\mu & =7.32\\
+s^{2} & =23.46
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thực hiện sinh các giá trị ngẫu nhiên từ phân phối chuẩn đưa ra như trên,
+ có một số số liệu sinh ra bất hợp lí, bởi có rất nhiều các giá trị 
+\begin_inset Formula $\Delta$
+\end_inset
+
+ nằm rải rác quanh giá trị 35 - 40, điều này trong thực tế là bất hợp lí
+ bởi làm gì có bệnh nhân nào phát bệnh cả tháng rồi mới bị công bố.
+\end_layout
+
+\begin_layout Subsubsection
+Lần xử lí 2:
+\end_layout
+
+\begin_layout Standard
+Lần này chặn trên cho thời gian là 12 ngày, giá trị 12 này có thể điều chỉnh
+ thành các giá trị khác sao cho hợp lí.
+ Nói cách khác, 
+\begin_inset Formula $\Delta$
+\end_inset
+
+lúc này được xác định như sau:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Delta=\min\left\{ \left|\Delta\right|,12\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Lần này có vẻ kết quả nhìn đáng tin hơn, còn lại có điều chỉnh hay điều
+ chỉnh như nào thì chưa biết.
+ ??
+\end_layout
+
+\begin_layout Section
+Sinh trọng số cho đồ thị
+\end_layout
+
+\begin_layout Subsection
+Các yếu tố cần xem xét
+\end_layout
+
+\begin_layout Standard
+Với dữ liệu đã được sinh như trên, ta bắt đầu sinh trọng số cho đồ thị theo
+ thời gian.
+\end_layout
+
+\begin_layout Standard
+Trọng số được đánh theo quan hệ của các bệnh nhân, nhóm tuổi và nghề nghiệp.
+\end_layout
+
+\begin_layout Subsubsection
+Nhóm tuổi
+\end_layout
+
+\begin_layout Standard
+Nhóm tuổi càng xa nhau càng ít tiếp xúc với nhau.
+\end_layout
+
+\begin_layout Standard
+Dữ liệu hiện tại có thể phân ra thành 4 nhóm tuổi, cụ thể như sau:
+\end_layout
+
+\begin_layout Enumerate
+Dưới 18 tuổi
+\end_layout
+
+\begin_layout Enumerate
+Từ 18 đến 40 tuổi
+\end_layout
+
+\begin_layout Enumerate
+Từ 40 - 60 tuổi
+\end_layout
+
+\begin_layout Enumerate
+Trên 60 tuổi
+\end_layout
+
+\begin_layout Standard
+Để biểu diễn được mối liên hệ này, ta xây dựng một ma trận 
+\begin_inset Formula $P=\left[p_{ij}\right]_{n\times n}$
+\end_inset
+
+, trong đó các phần tử 
+\begin_inset Formula $p_{ij}$
+\end_inset
+
+ được xác định là quan hệ giữa người thuộc nhóm tuổi 
+\begin_inset Formula $i$
+\end_inset
+
+ và nhóm tuổi 
+\begin_inset Formula $j$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Dễ thấy 
+\begin_inset Formula $P$
+\end_inset
+
+ là ma trận đối xứng.
+\end_layout
+
+\begin_layout Standard
+Giả sử rằng những người cùng nhóm tuổi có tiếp xúc nhiều nhất, ta gán các
+ giá trị 
+\begin_inset Formula $p_{ii}=1$
+\end_inset
+
+.
+ Các phần tử còn lại giảm dần theo khoảng cách 
+\begin_inset Formula $\left|i-j\right|$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Giả định
+\begin_inset Formula 
+\[
+p_{ij}=1-0.2\left|i-j\right|
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Biểu diễn một cách rõ ràng hơn, ma trận 
+\begin_inset Formula $P$
+\end_inset
+
+ như sau:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+P=\begin{bmatrix}1 & 0.8 & 0.6 & 0.4\\
+0.8 & 1 & 0.8 & 0.6\\
+0.6 & 0.8 & 1 & 0.8\\
+0.4 & 0.6 & 0.8 & 1
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Quan hệ
+\end_layout
+
+\begin_layout Standard
+Những người có quan hệ càng gần gũi càng có hệ số cao
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\emph on
+Điều này cần kiểm chứng, bởi các cụ già thì thích chơi với trẻ em ???
+\end_layout
+
+\begin_layout Standard
+Những người có quan hệ trong gia đình có tiếp xúc nhiều và gần gũi hơn đồng
+ nghiệp, đồng nghiệp hơn những người có quan hệ xã giao.
+ Những trường hợp không xác định được quan hệ sẽ có trọng số được sinh tự
+ do.
+\end_layout
+
+\begin_layout Standard
+Có 5 loại quan hệ có thể được tìm thấy trong dữ liệu
+\end_layout
+
+\begin_layout Enumerate
+Không xác định.
+\begin_inset Newline newline
+\end_inset
+
+Dạng quan hệ này có thể là 1 trong 4 dạng dưới, hoặc là dạng nào đó không
+ được đề cập đến, trọng số có thể xác định bằng cách sinh ngẫu nhiên\SpecialChar endofsentence
+
+\begin_inset Newline newline
+\end_inset
+
+Trọng số này có thẻ cao hoặc không, bởi có nhiều dạng quan hệ không được
+ đề cập đến ở đây như chỉ là xã giao, họ hàng xa, người yêu, bồ bịch,....
+\end_layout
+
+\begin_layout Enumerate
+Bệnh nhân - nhân viên
+\end_layout
+
+\begin_layout Enumerate
+Đồng nghiệp
+\end_layout
+
+\begin_layout Enumerate
+Xã giao
+\end_layout
+
+\begin_layout Enumerate
+Họ hàng
+\end_layout
+
+\begin_layout Standard
+Dựa vào thông tin trên ta có thể giả sử trọng số được cho bởi bảng dưới.
+\end_layout
+
+\begin_layout Standard
+Trọng số này được sinh theo cảm tính, không dựa trên cơ sở nào
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Quan hệ
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Trọng số
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Không xác định
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+uniform
+\begin_inset Formula $\left(0.2,0.7\right)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bệnh nhân - nhân viên
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Đồng nghiệp
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.5
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Người thân
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Xã giao
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Bảng trọng số
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Các quyết định của chính phủ
+\end_layout
+
+\begin_layout Standard
+Đây là một yếu tố rất quan trọng ảnh hưởng đến cách thức dịch bệnh phát
+ tán.
+ Điển hình nhất là quả giãn cách xã hội, biết mùi nhau ngay.
+\end_layout
+
+\begin_layout Standard
+Có 4 động thái chính của chính quyền tác động đến Đà Nẵng nhằm ngăn chặn
+ sự lây lan của dịch theo các mốc thời gian và sức tác động của chúng như
+ sau:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mốc thời gian
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Hoạt động
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Trọng số
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+27/07/2020
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Thực hiện giãn cách xã hội
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+28/07
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+31/07
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.5
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+02/08
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Các quyết định được ban hành nhằm ngăn cản dịch bệnh lây lan
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Có nhiều yếu tố có thể xét thêm, ví dụ như về nghề nghiệp,..., tuy nhiên tạm
+ thời ta chưa xét đến do vấn đề về dữ liệu, nghề nghiệp thì không ước lượng
+ được.
+\end_layout
+
+\begin_layout Standard
+Từ các yếu tố trên, ta có thể đưa ra một ước lượng cho trọng số cạnh như
+ mục dưới đây.
+\end_layout
+
+\begin_layout Subsection
+Ước lượng trọng số cạnh cho đồ thị
+\end_layout
+
+\begin_layout Subsubsection
+Cạnh giữa bệnh nhân - bệnh nhân
+\end_layout
+
+\begin_layout Standard
+Xét một cạnh có hướng 
+\begin_inset Formula $e$
+\end_inset
+
+ thể hiện quan hệ giữa bệnh nhân 
+\begin_inset Formula $s$
+\end_inset
+
+ và ca liên quan 
+\begin_inset Formula $t$
+\end_inset
+
+ vào ngày 
+\begin_inset Formula $d$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Giả sử rằng ngày phát bệnh của ca 
+\begin_inset Formula $s$
+\end_inset
+
+ là ngày 
+\begin_inset Formula $d_{\text{o}}$
+\end_inset
+
+ và ngày bị bế đi cách li là 
+\begin_inset Formula $d_{\text{q}}$
+\end_inset
+
+.
+ Ta thấy 
+\begin_inset Formula $s$
+\end_inset
+
+ sẽ không tồn tại trong đồ thị nếu một trong 2 điều kiện sau được thỏa mãn:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $d-d_{q}>0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $d_{o}-d>14$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Xét một ngày 
+\begin_inset Formula $d$
+\end_inset
+
+ nào đó mà cả 2 bệnh nhân 
+\begin_inset Formula $s$
+\end_inset
+
+ và 
+\begin_inset Formula $t$
+\end_inset
+
+ cùng tồn tại trong đồ thị, ta sinh trọng số 
+\begin_inset Formula $w_{e}$
+\end_inset
+
+ cho cạnh 
+\begin_inset Formula $e$
+\end_inset
+
+ nối từ 
+\begin_inset Formula $t$
+\end_inset
+
+ đến 
+\begin_inset Formula $s$
+\end_inset
+
+, cạnh 
+\begin_inset Formula $e$
+\end_inset
+
+ này thể hiện cho mức độ ảnh hưởng của bệnh nhân 
+\begin_inset Formula $s$
+\end_inset
+
+ lên bệnh nhân 
+\begin_inset Formula $t$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Ta mong muốn ước lượng một hàm sinh trọng số đáp ứng được một số yêu cầu
+ sau:
+\end_layout
+
+\begin_layout Enumerate
+Rất nhỏ và tăng rất chậm vào thời điểm mới bắt đầu nhiễm bệnh
+\end_layout
+
+\begin_layout Enumerate
+Tăng nhanh vào thời điểm sau đó, có thể là từ 3, 4, 5,...whatever ngày sau
+ thời điểm bắt đầu nhiễm bệnh
+\end_layout
+
+\begin_layout Enumerate
+Đạt đỉnh vào ngày phát bệnh
+\end_layout
+
+\begin_layout Enumerate
+Sau khi phát bệnh, trọng số giảm dần do bệnh nhân đã có nhận thức về việc
+ bất bình thường trong sức khỏe của mình
+\end_layout
+
+\begin_layout Standard
+Với các tiêu chí như trên, đồ thị ta mong muốn có thể sẽ có dạng như sau:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /media/jurgen/Documents/Subjects/IT/Github_Repositories/epidemic_model_simulation/server/ideal_function.png
+	lyxscale 5
+	width 8cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Đồ thị mong muốn
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Một dạng đồ thị có thể rất dễ dàng nhìn thấy được là ông thần 
+\begin_inset Formula $e^{x}$
+\end_inset
+
+.
+ (có thể thử sigmoid, ông này nhìn cũng rất hợp lí)
+\end_layout
+
+\begin_layout Standard
+Cho rằng:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+f\left(d\right)=\exp\left\{ -\left|d-d_{\text{o}}\right|P_{ij}c_{ij}\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+trong đó:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+P_{ij} & =P_{ij}\left(d\right)\\
+c_{ij} & =c_{ij}\left(d\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+với 
+\begin_inset Formula $P_{ij}$
+\end_inset
+
+ là trọng số thể hiện tương tác theo lứa tuổi, 
+\begin_inset Formula $c_{ij}$
+\end_inset
+
+ thể hiện mối quan hệ giữa 
+\begin_inset Formula $s$
+\end_inset
+
+ và 
+\begin_inset Formula $t$
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
