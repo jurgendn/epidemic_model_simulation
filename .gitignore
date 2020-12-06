@@ -1,6 +1,11 @@
 visualization/node_modules
+visualization/.vscode
 server/epidemic
 server/__pycache__
 server/.vscode
 server/.ipynb_checkpoints
 visualization/OpenLayers-2.13.1
+visualization/mustache.js-master
+server/data.csv
+server/data_backup.csv
+server/*.csv
