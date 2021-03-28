@@ -18,33 +18,14 @@
         style="display: inline-flex; background-color: transparent; z-index: 1"
       >
         <tr>
-          <td id="p_name_label" style="padding: 10px">Bệnh nhân</td>
-          <td id="p_name"></td>
-        </tr>
-        <tr>
-          <td id="p_onset_label" style="padding: 10px">Ngày phát bệnh</td>
-          <td id="p_onset"></td>
-        </tr>
-        <tr>
-          <td id="p_announce_label" style="padding: 10px">Ngày công bố</td>
-          <td id="p_announce"></td>
-        </tr>
-        <tr>
-          <td id="p_quarantine_label" style="padding: 10px">Ngày cách ly</td>
-          <td id="p_quarantine"></td>
-        </tr>
-        <tr>
-          <td id="p_rank_label" style="padding: 10px">Pagerank</td>
-          <td id="p_rank"></td>
-        </tr>
-        <tr>
+          <td id="fileNameField" style="padding: 10px">Filename:</td>
           <td>
-            <input type="text" name="searchNode" id="searchNode" />
+            <input type="text" name="fileName" id="fileName" />
           </td>
         </tr>
       </table>
     </div>
-    <div id="sigma-wrapper"><div id="container" style="z-index: 10"></div></div>
+    <div id="sigma-wrapper"><div id="container"></div></div>
   </body>
   <script src="sigma/build/sigma.min.js"></script>
   <script src="sigma/build/plugins/sigma.parsers.json.min.js"></script>
@@ -53,6 +34,7 @@
   <script src="sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edges.curvedArrow.js"></script>
   <script src="sigma/plugins/sigma.renderers.parallelEdges/sigma.canvas.edgehovers.curvedArrow.js"></script>
   <script src="sigma/src/renderers/sigma.renderers.canvas.js"></script>
+  <script src="sigma/build/plugins/sigma.renderers.edgeLabels.min.js"></script>
   <script src="sigma/build/plugins/sigma.parsers.gexf.min.js"></script>
   <script src="sigma/plugins/sigma.plugins.filter/sigma.plugins.filter.js"></script>
   <script src="sigma/plugins/sigma.renderers.customShapes/shape-library.js"></script>
@@ -60,7 +42,6 @@
   <script src="sigma/build/plugins/sigma.renderers.customShapes.min.js"></script>
   <script src="sigma/plugins/sigma.exporters.svg/sigma.exporters.svg.js"></script>
   <script src="sigma/build/plugins/sigma.renderers.snapshot.min.js"></script>
-  <script src="mustache.js-master/mustache.min.js"></script>
   <script src="sigma/build/plugins/sigma.plugins.tooltips.js"></script>
   <script src="modules/visual_modules/sigmajs/graph_maker.js"></script>
 </html>
