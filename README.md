@@ -10,12 +10,16 @@ This repo implements (and partially prototypes) the graph-based epidemic modelin
 ![Status](https://img.shields.io/badge/status-prototype-orange.svg)
 ![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
 
+<p align="center">
+  <img src="assets/graph.png" alt="Graph" width="520" />
+</p>
+
 Instead of only using compartmental models (SI/SIR/SEIR), the report treats spread as a **time-varying influence process over a network** (patients + shared locations), and ranks “influential” patients per day using **PageRank**.
 
 ## Model summary (from the report)
 
 ### 1) Entities and graph construction
-
+ 
 The report models the outbreak as a graph $G=(V,E)$.
 
 - **Patient nodes**: each case is a node with attributes such as age group, symptom onset date, and announcement date.
