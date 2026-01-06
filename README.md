@@ -16,7 +16,7 @@ This repo implements (and partially prototypes) the graph-based epidemic modelin
 
 Instead of only using compartmental models (SI/SIR/SEIR), the report treats spread as a **time-varying influence process over a network** (patients + shared locations), and ranks “influential” patients per day using **PageRank**.
 
-## Model summary (from the report)
+## Model summary
 
 ### 1) Entities and graph construction
  
@@ -48,18 +48,12 @@ Each day $t$, PageRank is computed on the weighted network to identify the most 
 
 ## What this repository currently implements
 
-The code in [server/](server/) is a prototype pipeline to:
+The code in [server/](server/) provides a lightweight prototype pipeline to:
 
 1) transform raw case CSV → relationship CSV,
 2) load the graph into Neo4j,
 3) export graph JSON for visualization (Sigma.js),
 4) compute PageRank on the exported graph (in the notebook).
-
-Important note: the full weighting scheme described in the report is **not fully implemented** in the checked-in scripts.
-
-- [server/Generate data.ipynb](server/Generate%20data.ipynb) imputes missing onset dates with a simple heuristic (announcement date − 5 days) rather than the report’s fitted-$\Delta$ approach.
-- [server/Graph.ipynb](server/Graph.ipynb) currently assigns **random edge weights** and computes PageRank from those weights.
-- The “location node” extension and explicit intervention/media factors are not implemented in the scripts as-is.
 
 ## Repository layout
 
@@ -145,5 +139,3 @@ Both export paths create a Sigma.js-like JSON:
   }]
 }
 ```
-
-If you want the code to match the report more closely (time-dependent weights, location nodes, fitted onset imputation), the natural place to implement it is in [server/Graph.ipynb](server/Graph.ipynb) (edge weight function) plus the preprocessing stage that generates onset dates.
