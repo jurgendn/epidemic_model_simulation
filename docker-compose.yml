@@ -25,6 +25,21 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  frontend:
+    build:
+      context: ./fe
+      dockerfile: Dockerfile
+    container_name: epidemic_frontend
+    ports:
+      - "3000:80"  # Map host port 3000 to container port 80
+    networks:
+      - epidemic_network
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    restart: unless-stopped
+
 networks:
   epidemic_network:
     driver: bridge
