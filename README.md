@@ -2,7 +2,9 @@
 
 This repo implements (and partially prototypes) the graph-based epidemic modeling approach described in the report “Mô phỏng mô hình lan truyền dịch bệnh” (HUST – Applied Mathematics & Informatics, 2020).
 
-[Report PDF](https://drive.google.com/file/d/1xAvo7zwlBNHZxxsiwgL30FlB6OCQ5aU1/view?usp=sharing)
+[Report PDF](https://drive.google.com/drive/folders/1JR6GStW_lsP0HNMwBfxJFzTTMIiWzGSH?usp=sharing)
+[Report PDF - English](https://drive.google.com/file/d/1Gbmdg5NDLFbCqo8vGfBBwFcQLPl82t5_/view?usp=sharing)
+[Report PDF - Vietnamese](https://drive.google.com/file/d/1xIKXLJr5qWOtT-H2t9HZrtYZPUqEp6oo/view?usp=sharing)
 
 ![Python](https://img.shields.io/badge/python-3.7+-blue.svg)
 ![Neo4j](https://img.shields.io/badge/neo4j-graph%20database-008CC1.svg)
